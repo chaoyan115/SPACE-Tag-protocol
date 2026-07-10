@@ -1,6 +1,6 @@
-# SPACE-Tag Protocol: Spatial Chromatin Profiling
+# SPACE-Tag-HD Protocol: Spatial Chromatin Profiling
 
-SPACE-Tag integrates spatial barcoding (Visium, Visium-HD) with CUT&Tag-based epigenomic profiling. Antibody-guided PA-Tn5 tagmentation generates transcribable DNA fragments at target chromatin loci, which are then spatially captured via in vitro transcription and reverse transcription on the Visium slide.
+SPACE-Tag integrates spatial barcoding (Visium-HD) with CUT&Tag-based epigenomic profiling. Antibody-guided PA-Tn5 tagmentation generates transcribable DNA fragments at target chromatin loci, which are then spatially captured via in vitro transcription and reverse transcription on the Visium slide.
 
 **Tags:** Spatial Epigenomics | CUT&Tag | Visium | PA-Tn5 | Histone Modifications  
 **Last updated:** June 6, 2024
@@ -108,6 +108,14 @@ Dilute PA-Tn5 to **0.5 mg/ml** using dilution buffer:
 ---
 
 ## Day 1 — Protocol Steps
+### Step 0: Load the PA-Tn5
+
+> **Rationale:** I found freshly loaded Transposome works the best (highest activity and more stable)
+
+**Transposome assembly:**
+
+1. Mix 10 µl of 0.5 mg/ml PA-Tn5 with 2 µl of annealed adapter aliquot (one per adapter).
+2. Incubate at RT for 1 hr.
 
 ### Step 1: Formaldehyde Tissue Fixation
 
@@ -123,8 +131,8 @@ b. Set thermomixer to **37°C** and allow to equilibrate for 5 min.
 1. Section tissue onto the Visium capture area at a thickness of **10 µm**.
 2. Place the slide (active surface up) on the thermomixer. Incubate for 5 min at 37°C.
 3. Remove the slide; wipe excess liquid from the back without touching tissue sections.
-4. Apply **1 ml of 0.2% formaldehyde** to cover the tissue. Incubate at RT for 10 min.
-5. Wash with **1 ml of 1X PBS + 1.25 mM glycine** to quench residual formaldehyde, then remove.
+4. Apply **1 ml of 0.2% formaldehyde** in 1xPBS to cover the tissue. Incubate at RT for 10 min.
+5. Wash with **1 ml of 1X PBS + 1.25 M glycine** to quench residual formaldehyde, then remove.
 6. Quickly wash with **1 ml of 1X PBS** for ~2 min at RT.
 
 ---
@@ -133,7 +141,7 @@ b. Set thermomixer to **37°C** and allow to equilibrate for 5 min.
 
 1. Prepare **1x BD Perm buffer** on ice.
 2. Apply **70 µl** 1x BD Perm buffer to each well.
-3. Incubate for **30 min at 4°C**.
+3. Incubate for **30 min at 4°C** (in referigerater).
 
 ---
 
@@ -167,7 +175,7 @@ b. Set thermomixer to **37°C** and allow to equilibrate for 5 min.
 5. Stop tagmentation with **40 mM EDTA** (70 µl); incubate at RT for 5 min.
 6. Wash with **100 µl 1X NEB buffer 2** for 5 min at RT; remove.
 
-> **Recommended:** Start ramping down temperature at 55 min from 55°C → 37°C before stopping.
+> **Recommended:** Start ramping down temperature at 55 min from 55°C → 37°C before stopping, optionally additionally 5min for the temperature to ramp down fully.
 
 ---
 
@@ -185,15 +193,15 @@ b. Set thermomixer to **37°C** and allow to equilibrate for 5 min.
 | RNase Inhibitor | 0.7 µl |
 | Klenow (exo⁻) | 2 µl |
 
-Remove buffer; add 70 µl fill-in solution. Incubate at **37°C for 30 min** with gentle shaking.
+Remove buffer; add 70 µl fill-in solution. Incubate at **37°C for 30 min** without shaking.
 
-> A Thermotopis is recommended for even temperature distribution.
+> A Thermotop is recommended for even temperature distribution.
 
 ---
 
 ### Step 7: Tissue Clearing
 
-> **Rationale:** HCl treatment removes histones and other proteins, improving accessibility for in vitro transcription.
+> **Rationale:** HCl treatment removes histones and other proteins, improving accessibility for *in vitro* transcription.
 
 1. Remove the gap-fill mixture.
 2. Add **70 µl of 0.1 M HCl** (accurately diluted from stock) to each well.
@@ -201,9 +209,11 @@ Remove buffer; add 70 µl fill-in solution. Incubate at **37°C for 30 min** wit
 4. Remove HCl.
 5. Add **100 µl of 1X T7 buffer** and wash for 5 min at RT.
 
+> **note:** the 2min clearing here is optimized for mouse brain tissue, for other tissue types, this time might needs optimization.
+
 ---
 
-### Step 8: In Vitro Transcription
+### Step 8: *In Vitro* Transcription
 
 > **Rationale:** T7 RNA polymerase transcribes from the inserted T7 promoter, generating multiple RNA copies per tagmentation event — a key amplification step that increases sensitivity.
 
