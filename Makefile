@@ -1,6 +1,7 @@
 MASTER   := protocol.md
 DOCX_OUT := SPACE-Tag-protocol.docx
-PANDOC   := pandoc
+SHELL    := /bin/bash
+PANDOC   := source /etc/profile.d/modules.sh && module load pandoc && pandoc
 
 .PHONY: help push docx all
 
