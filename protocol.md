@@ -190,7 +190,7 @@ b. Set thermomixer to **37°C** and allow to equilibrate for 5 min.
 | H₂O | 56.8 µl |
 | 10x NEB buffer 2 | 7 µl |
 | dNTPs | 3.5 µl |
-| RNase Inhibitor | 0.7 µl |
+| RNase Inhibitor (RNAseout) | 0.7 µl |
 | Klenow (exo⁻) | 2 µl |
 
 Remove buffer; add 70 µl fill-in solution. Incubate at **37°C for 30 min** without shaking.
@@ -224,7 +224,7 @@ Remove buffer; add 70 µl fill-in solution. Incubate at **37°C for 30 min** wit
 | Nuclease-free water | 45.5 µl |
 | 5x T7 RNA Polymerase buffer | 14 µl |
 | 25 mM each rNTP | 5.6 µl |
-| RNase Inhibitor | 3.5 µl |
+| RNase Inhibitor (RNAseout) | 3.5 µl |
 | T7 RNA Polymerase (Thermo) | 1.4 µl |
 | **Total** | **70 µl** |
 
