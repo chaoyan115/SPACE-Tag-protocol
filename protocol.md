@@ -306,7 +306,7 @@ Prepare the RT mixture (70 µl/well) and pre-heat to **42°C** before use.
 | BSA (20 mg/ml) | 0.65 µl |
 | dNTP mix (10 mM each) | 3.5 µl |
 | *(Add immediately before use:)* | |
-| RNaseOut (1 U/µl) | 3.5 µl |
+| RNaseOut (40 U/µl) | 3.5 µl |
 | MMuLV (200 U/µl) | 7 µl |
 | **Total** | **70 µl** |
 
@@ -319,7 +319,7 @@ Prepare the RT mixture (70 µl/well) and pre-heat to **42°C** before use.
 | BSA (20 mg/ml) | 0.65 µl |
 | dNTP mix (10 mM each) | 3.5 µl |
 | *(Add immediately before use:)* | |
-| RNaseOut (1 U/µl) | 3.5 µl |
+| RNaseOut (40 U/µl) | 3.5 µl |
 | SSIII (200 U/µl) | 7 µl |
 | **Total** | **70 µl** |
 
