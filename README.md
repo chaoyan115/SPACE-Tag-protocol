@@ -43,10 +43,6 @@ The complete reagent list is in the protocol.
 A manuscript describing SPACE-Tag is in preparation. Please check back here for the
 citation, or get in touch before using the method in published work.
 
-## Contact
-
-Vickovic Lab, New York Genome Center.
-
 ## Feedback
 
 If something in the protocol is unclear or does not work in your hands, please open an
