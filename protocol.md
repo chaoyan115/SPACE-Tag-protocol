@@ -423,7 +423,7 @@ For Visium slides (e.g. mouse brain, ~70% capture area): ~18 cycles recommended.
 | Final extension | 72°C | 1 min | 1 |
 | Hold | 4°C | ∞ | — |
 
-Purify with **0.1x SPRI**; elute in 40 µl. Use 20 µl for index PCR.
+Purify with **1x SPRI**; elute in 50 µl. Use 10 µl for index PCR.
 
 **Index PCR (5 cycles):**
 
