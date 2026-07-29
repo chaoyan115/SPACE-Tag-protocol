@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang xml:lang>
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SPACE-Tag Protocol: Spatial Chromatin Profiling</title>
+  <style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+</style>
+  <style type="text/css">
+:root {
+--fg: #1f2328;
+--muted: #59636e;
+--faint: #848d97;
+--accent: #0969da;
+--border: #d1d9e0;
+--bg-soft: #f6f8fa;
+--bg: #ffffff;
+--sidebar-w: 18rem;
+--content-w: 50rem;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+--fg: #e6edf3;
+--muted: #9198a1;
+--faint: #6e7681;
+--accent: #4493f8;
+--border: #30363d;
+--bg-soft: #161b22;
+--bg: #0d1117;
+}
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+Helvetica, Arial, sans-serif;
+font-size: 16px;
+line-height: 1.65;
+color: var(--fg);
+background: var(--bg);
+margin: 0;
+padding: 0 1.5rem 6rem;
+word-wrap: break-word;
+}
+
+.topbar {
+display: flex;
+align-items: center;
+gap: .5rem;
+font-size: .875rem;
+padding: .9rem 0 1.6rem;
+color: var(--muted);
+}
+.topbar-mark { font-weight: 600; color: var(--fg); letter-spacing: -.01em; }
+.topbar-sep { color: var(--faint); }
+.topbar-label { color: var(--muted); }
+.topbar-link {
+margin-left: auto;
+color: var(--muted);
+border: 1px solid var(--border);
+border-radius: 6px;
+padding: .25rem .7rem;
+font-size: .8125rem;
+text-decoration: none;
+white-space: nowrap;
+}
+.topbar-link:hover { color: var(--accent); border-color: var(--accent); text-decoration: none; }
+
+
+body > *:not(nav#TOC) {
+max-width: var(--content-w);
+margin-right: auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+margin: 2em 0 .7em;
+font-weight: 600;
+line-height: 1.3;
+letter-spacing: -.011em;
+scroll-margin-top: 1.5rem;
+}
+h1 { font-size: 2.1em; margin-top: .4em; padding-bottom: .35em; border-bottom: 1px solid var(--border); }
+h2 { font-size: 1.5em; padding-bottom: .3em; border-bottom: 1px solid var(--border); }
+h3 { font-size: 1.2em; }
+h4 { font-size: 1em; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; font-size: .82em; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+p { margin: 0 0 1.05em; }
+ul, ol { margin: 0 0 1.05em; padding-left: 1.7em; }
+li + li { margin-top: .3em; }
+li > ul, li > ol { margin-top: .3em; margin-bottom: .3em; }
+strong { font-weight: 600; }
+
+code {
+font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+"Liberation Mono", monospace;
+font-size: 85%;
+background: var(--bg-soft);
+border: 1px solid var(--border);
+border-radius: 5px;
+padding: .12em .38em;
+}
+pre {
+background: var(--bg-soft);
+border: 1px solid var(--border);
+border-radius: 8px;
+padding: 1em 1.1em;
+overflow-x: auto;
+line-height: 1.5;
+font-size: .9em;
+}
+pre code { background: none; border: 0; padding: 0; font-size: 100%; }
+
+blockquote {
+margin: 1.3em 0;
+padding: .85em 1.1em;
+background: var(--bg-soft);
+border: 1px solid var(--border);
+border-left: 3px solid var(--accent);
+border-radius: 0 8px 8px 0;
+color: var(--fg);
+}
+blockquote > :first-child { margin-top: 0; }
+blockquote > :last-child { margin-bottom: 0; }
+
+table {
+border-collapse: collapse;
+display: block;
+width: fit-content;
+max-width: 100%;
+overflow-x: auto;
+margin: 1.3em 0;
+font-size: .94em;
+border: 1px solid var(--border);
+border-radius: 8px;
+}
+th, td {
+border-bottom: 1px solid var(--border);
+border-right: 1px solid var(--border);
+padding: .55em .9em;
+text-align: left;
+vertical-align: top;
+}
+th:last-child, td:last-child { border-right: 0; }
+tbody tr:last-child td { border-bottom: 0; }
+th { background: var(--bg-soft); font-weight: 600; white-space: nowrap; }
+
+hr { height: 1px; border: 0; background: var(--border); margin: 3em 0; }
+
+nav#TOC {
+font-size: .875rem;
+line-height: 1.45;
+}
+nav#TOC::before {
+content: "Contents";
+display: block;
+font-weight: 600;
+font-size: .72rem;
+color: var(--faint);
+text-transform: uppercase;
+letter-spacing: .08em;
+margin-bottom: .75rem;
+}
+nav#TOC ul { list-style: none; margin: 0; padding-left: .85rem; }
+nav#TOC > ul { padding-left: 0; }
+nav#TOC li { margin: 0; }
+nav#TOC a {
+display: block;
+padding: .2rem 0;
+color: var(--muted);
+border-left: 2px solid transparent;
+padding-left: .6rem;
+margin-left: -.6rem;
+}
+nav#TOC a:hover {
+color: var(--accent);
+border-left-color: var(--accent);
+text-decoration: none;
+}
+nav#TOC > ul > li > a { color: var(--fg); font-weight: 500; }
+
+@media (min-width: 1080px) {
+body { padding-left: calc(var(--sidebar-w) + 3rem); }
+nav#TOC {
+position: fixed;
+top: 0;
+left: 0;
+bottom: 0;
+width: var(--sidebar-w);
+padding: 1.6rem 1.1rem 2rem 1.5rem;
+overflow-y: auto;
+overscroll-behavior: contain;
+border-right: 1px solid var(--border);
+background: var(--bg);
+}
+nav#TOC::-webkit-scrollbar { width: 8px; }
+nav#TOC::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+}
+
+@media (max-width: 1079px) {
+nav#TOC {
+max-width: var(--content-w);
+margin: 0 auto 2.5rem;
+padding: 1rem 1.2rem;
+background: var(--bg-soft);
+border: 1px solid var(--border);
+border-radius: 8px;
+}
+}
+@media (max-width: 600px) {
+body { padding-left: 1rem; padding-right: 1rem; font-size: 15px; }
+h1 { font-size: 1.65em; }
+h2 { font-size: 1.3em; }
+.topbar-link { display: none; }
+}
+</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<div class="topbar">
+  <span class="topbar-mark">SPACE-Tag</span>
+  <span class="topbar-sep">/</span>
+  <span class="topbar-label">Protocol</span>
+  <a class="topbar-link" href="https://github.com/chaoyan115/SPACE-Tag-protocol">View on GitHub</a>
+</div>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#space-tag-protocol-spatial-chromatin-profiling" id="toc-space-tag-protocol-spatial-chromatin-profiling">SPACE-Tag
+Protocol: Spatial Chromatin Profiling</a>
+<ul>
+<li><a href="#solutions-reagents" id="toc-solutions-reagents">Solutions
+&amp; Reagents</a>
+<ul>
+<li><a href="#digi-ct-wash-buffer" id="toc-digi-ct-wash-buffer">digi-CT
+Wash Buffer</a></li>
+<li><a href="#digi-300-wash-buffer" id="toc-digi-300-wash-buffer">digi-300-Wash Buffer</a></li>
+<li><a href="#tagmentation-buffer" id="toc-tagmentation-buffer">Tagmentation Buffer</a></li>
+<li><a href="#x-primer-hybridization-buffer" id="toc-x-primer-hybridization-buffer">2x Primer Hybridization
+Buffer</a></li>
+<li><a href="#additional-reagents-required" id="toc-additional-reagents-required">Additional Reagents
+Required</a></li>
+</ul></li>
+<li><a href="#day-0-preparation" id="toc-day-0-preparation">Day 0 —
+Preparation</a>
+<ul>
+<li><a href="#a.-adapter-annealing-can-be-done-in-advance" id="toc-a.-adapter-annealing-can-be-done-in-advance">A. Adapter
+Annealing (can be done in advance)</a></li>
+<li><a href="#b.-pa-tn5-dilution-transposon-assembly" id="toc-b.-pa-tn5-dilution-transposon-assembly">B. PA-Tn5 Dilution &amp;
+Transposon Assembly</a></li>
+</ul></li>
+<li><a href="#day-1-protocol-steps" id="toc-day-1-protocol-steps">Day 1
+— Protocol Steps</a>
+<ul>
+<li><a href="#step-0-load-the-pa-tn5" id="toc-step-0-load-the-pa-tn5">Step 0: Load the PA-Tn5</a></li>
+<li><a href="#step-1-formaldehyde-tissue-fixation" id="toc-step-1-formaldehyde-tissue-fixation">Step 1: Formaldehyde Tissue
+Fixation</a></li>
+<li><a href="#step-2-permeabilization" id="toc-step-2-permeabilization">Step 2: Permeabilization</a></li>
+<li><a href="#step-3-primary-antibody-staining" id="toc-step-3-primary-antibody-staining">Step 3: Primary Antibody
+Staining</a></li>
+<li><a href="#step-4-secondary-antibody-staining" id="toc-step-4-secondary-antibody-staining">Step 4: Secondary Antibody
+Staining</a></li>
+<li><a href="#step-5-tagmentation" id="toc-step-5-tagmentation">Step 5:
+Tagmentation</a></li>
+<li><a href="#step-6-tissue-clearing" id="toc-step-6-tissue-clearing">Step 6: Tissue Clearing</a></li>
+<li><a href="#step-7-gap-filling" id="toc-step-7-gap-filling">Step 7:
+Gap Filling</a></li>
+<li><a href="#step-8-in-vitro-transcription" id="toc-step-8-in-vitro-transcription">Step 8: <em>In Vitro</em>
+Transcription</a></li>
+</ul></li>
+<li><a href="#day-2" id="toc-day-2">Day 2</a>
+<ul>
+<li><a href="#step-9-methanol-fixation" id="toc-step-9-methanol-fixation">Step 9: Methanol Fixation</a></li>
+<li><a href="#step-10-he-staining" id="toc-step-10-he-staining">Step 10:
+H&amp;E Staining</a></li>
+<li><a href="#step-11-tissue-wash" id="toc-step-11-tissue-wash">Step 11:
+Tissue Wash</a></li>
+<li><a href="#step-12-cdna-synthesis" id="toc-step-12-cdna-synthesis">Step 12: cDNA Synthesis</a></li>
+</ul></li>
+<li><a href="#day-3" id="toc-day-3">Day 3</a>
+<ul>
+<li><a href="#step-13-denaturation-post-rt" id="toc-step-13-denaturation-post-rt">Step 13: Denaturation
+(post-RT)</a></li>
+<li><a href="#step-14-second-strand-synthesis" id="toc-step-14-second-strand-synthesis">Step 14: Second Strand
+Synthesis</a></li>
+<li><a href="#step-15-denaturation-post-second-strand" id="toc-step-15-denaturation-post-second-strand">Step 15: Denaturation
+(post-Second Strand)</a></li>
+<li><a href="#step-16-pcr-library-amplification" id="toc-step-16-pcr-library-amplification">Step 16: PCR Library
+Amplification</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="space-tag-protocol-spatial-chromatin-profiling">SPACE-Tag
+Protocol: Spatial Chromatin Profiling</h1>
+<p>SPACE-Tag integrates spatial barcoding with CUT&amp;Tag-based
+epigenomic profiling. Antibody-guided PA-Tn5 tagmentation generates
+transcribable DNA fragments at target chromatin loci, which are then
+spatially captured via in vitro transcription and reverse transcription
+on the Visium slide.</p>
+<p><strong>Tags:</strong> Spatial Epigenomics | CUT&amp;Tag | Visium |
+PA-Tn5 | Histone Modifications<br />
+<strong>Last updated:</strong> June 6, 2024</p>
+<hr />
+<h2 id="solutions-reagents">Solutions &amp; Reagents</h2>
+<p>Prepare all buffers fresh or as needed. Store at 4°C unless otherwise
+noted.</p>
+<h3 id="digi-ct-wash-buffer">digi-CT Wash Buffer</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume</th>
+<th>Final Conc.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1M HEPES</td>
+<td>200 µl</td>
+<td>20 mM</td>
+</tr>
+<tr class="even">
+<td>5M NaCl</td>
+<td>300 µl</td>
+<td>150 mM</td>
+</tr>
+<tr class="odd">
+<td>6.4M spermidine</td>
+<td>0.78 µl</td>
+<td>0.5 mM</td>
+</tr>
+<tr class="even">
+<td>Protease inhibitor</td>
+<td>1 tablet</td>
+<td>1x</td>
+</tr>
+<tr class="odd">
+<td>5% digitonin</td>
+<td>20 µl</td>
+<td>0.01%</td>
+</tr>
+<tr class="even">
+<td>H₂O</td>
+<td>to 10 ml</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="digi-300-wash-buffer">digi-300-Wash Buffer</h3>
+<blockquote>
+<p>Higher NaCl (300 mM) reduces non-specific Tn5 binding during
+tagmentation.</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume</th>
+<th>Final Conc.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1M HEPES</td>
+<td>200 µl</td>
+<td>20 mM</td>
+</tr>
+<tr class="even">
+<td>5M NaCl</td>
+<td>600 µl</td>
+<td>300 mM</td>
+</tr>
+<tr class="odd">
+<td>6.4M spermidine</td>
+<td>0.78 µl</td>
+<td>0.5 mM</td>
+</tr>
+<tr class="even">
+<td>Protease inhibitor</td>
+<td>1 tablet</td>
+<td>1x</td>
+</tr>
+<tr class="odd">
+<td>5% digitonin</td>
+<td>20 µl</td>
+<td>0.01%</td>
+</tr>
+<tr class="even">
+<td>H₂O</td>
+<td>to 10 ml</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tagmentation-buffer">Tagmentation Buffer</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>digi-300-wash buffer</td>
+<td>1000 µl</td>
+</tr>
+<tr class="even">
+<td>1M MgCl₂</td>
+<td>10 µl (10 mM final)</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>MgCl₂ is required for Tn5 transposase activity.</p>
+</blockquote>
+<h3 id="x-primer-hybridization-buffer">2x Primer Hybridization
+Buffer</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume</th>
+<th>Final Conc.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>20X SSC</td>
+<td>2 ml</td>
+<td>4X SSC</td>
+</tr>
+<tr class="even">
+<td>100% Formamide</td>
+<td>4 ml</td>
+<td>40%</td>
+</tr>
+<tr class="odd">
+<td>10% Tween-20</td>
+<td>200 µl</td>
+<td>0.2%</td>
+</tr>
+<tr class="even">
+<td>H₂O</td>
+<td>to 10 ml</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h3 id="additional-reagents-required">Additional Reagents Required</h3>
+<ul>
+<li>1X PBS</li>
+<li>1X PBS with 1.25 M Glycine</li>
+<li>BD Perm/Wash Buffer (554723)</li>
+<li>40 mM EDTA</li>
+<li>ArrayIT 16-well Hybridization Cassettes (AHC1X16) or Proplate
+(244864, Grace Biolabs)</li>
+</ul>
+<hr />
+<h2 id="day-0-preparation">Day 0 — Preparation</h2>
+<h3 id="a.-adapter-annealing-can-be-done-in-advance">A. Adapter
+Annealing (can be done in advance)</h3>
+<h4 id="adapter-sequences">Adapter Sequences</h4>
+<p>HPLC purification recommended; alternatively order in ultramer
+format.</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Sequence (5’→3’)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>dual_ME19_polyT_v2 (Adapter A)</td>
+<td><code>TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTVNAGATGTGTATAAGAGACAG</code></td>
+</tr>
+<tr class="even">
+<td>T7_MedsB (Adapter B)</td>
+<td><code>GAATTTAATACGACTCACTATAGGGGTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG</code></td>
+</tr>
+<tr class="odd">
+<td>ME_19_Phos (Mosaic Ends)</td>
+<td><code>/5Phos/CTGTCTCTTATACACATCT</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="annealing-recipe-per-adapter">Annealing Recipe (per
+adapter)</h4>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Adapter A or B (100 µM stock)</td>
+<td>25 µl</td>
+</tr>
+<tr class="even">
+<td>Mosaic ends</td>
+<td>25 µl</td>
+</tr>
+<tr class="odd">
+<td>50x annealing buffer (0.5 M Tris pH 8.0, 2.5 M NaCl)</td>
+<td>1 µl</td>
+</tr>
+</tbody>
+</table>
+<h4 id="annealing-program">Annealing Program</h4>
+<ul>
+<li>95°C for 5 min</li>
+<li>Ramp down to 14°C at −0.1°C/s (slow cool for proper duplex
+formation)</li>
+</ul>
+<blockquote>
+<p><strong>Storage:</strong> Aliquot annealed adapters into 2 µl
+single-use stocks and store at −20°C. Use a fresh aliquot for each
+experiment.</p>
+</blockquote>
+<h3 id="b.-pa-tn5-dilution-transposon-assembly">B. PA-Tn5 Dilution &amp;
+Transposon Assembly</h3>
+<h4 id="pa-tn5-dilution">PA-Tn5 Dilution</h4>
+<p>Dilute PA-Tn5 to <strong>0.5 mg/ml</strong> using dilution
+buffer:</p>
+<p><strong>Dilution buffer:</strong> 50% glycerol, 10 mM Tris-HCl pH
+7.5, 100 mM NaCl, 0.1 mM EDTA, 1 mM DTT</p>
+<hr />
+<h2 id="day-1-protocol-steps">Day 1 — Protocol Steps</h2>
+<h3 id="step-0-load-the-pa-tn5">Step 0: Load the PA-Tn5</h3>
+<blockquote>
+<p><strong>Rationale:</strong> I found freshly loaded Transposome works
+the best (highest activity and more stable)</p>
+</blockquote>
+<p><strong>Transposome assembly:</strong></p>
+<ol type="1">
+<li>Mix 10 µl of 0.5 mg/ml PA-Tn5 with 2 µl of annealed adapter aliquot
+(one per adapter).</li>
+<li>Incubate at RT for 1 hr.</li>
+</ol>
+<h3 id="step-1-formaldehyde-tissue-fixation">Step 1: Formaldehyde Tissue
+Fixation</h3>
+<blockquote>
+<p><strong>Rationale:</strong> Light formaldehyde fixation preserves
+tissue morphology and protein–chromatin interactions while maintaining
+antibody/enzyme accessibility in subsequent steps.</p>
+</blockquote>
+<p><strong>Before experiment:</strong></p>
+<ol type="a">
+<li>Prepare <strong>0.2% formaldehyde</strong> (methanol-free, Sigma
+F8775-25ML) in PBS.<br />
+</li>
+<li>Set thermomixer to <strong>37°C</strong> and allow to equilibrate
+for 5 min.</li>
+</ol>
+<p><strong>Tissue fixation:</strong></p>
+<ol type="1">
+<li>Section tissue onto the Visium capture area at a thickness of
+<strong>10 µm</strong>.</li>
+<li>Place the slide (active surface up) on the thermomixer. Incubate for
+5 min at 37°C.</li>
+<li>Remove the slide; wipe excess liquid from the back without touching
+tissue sections.</li>
+<li>Apply <strong>1 ml of 0.2% formaldehyde</strong> in 1xPBS to cover
+the tissue. Incubate at RT for 10 min.</li>
+<li>Wash with <strong>1 ml of 1X PBS + 1.25 M glycine</strong> to quench
+residual formaldehyde, then remove.</li>
+<li>Quickly wash with <strong>1 ml of 1X PBS</strong> for ~2 min at
+RT.</li>
+</ol>
+<hr />
+<h3 id="step-2-permeabilization">Step 2: Permeabilization</h3>
+<ol type="1">
+<li>Prepare <strong>1x BD Perm buffer</strong> on ice.</li>
+<li>Apply <strong>70 µl</strong> 1x BD Perm buffer to each well.</li>
+<li>Incubate for <strong>30 min at 4°C</strong> (in referigerater).</li>
+</ol>
+<hr />
+<h3 id="step-3-primary-antibody-staining">Step 3: Primary Antibody
+Staining</h3>
+<ol type="1">
+<li>After removing BD Perm buffer, apply <strong>70 µl</strong> primary
+antibody diluted in 1X BD Perm buffer.</li>
+<li>Incubate at <strong>RT for 1 hr</strong>.</li>
+<li>Wash with <strong>100 µl 1x PBS</strong> for 5 min at RT.</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> Dilution factor should be benchmarked by
+immunostaining and a pilot experiment.</p>
+</blockquote>
+<hr />
+<h3 id="step-4-secondary-antibody-staining">Step 4: Secondary Antibody
+Staining</h3>
+<blockquote>
+<p><strong>Rationale:</strong> The secondary antibody bridges the
+primary antibody to PA-Tn5, enabling targeted tagmentation at chromatin
+loci of interest.</p>
+</blockquote>
+<ol type="1">
+<li>Add secondary antibody in <strong>digi-CT wash buffer</strong> at
+<strong>1:50 dilution</strong>, 70 µl/well. Incubate at RT for 30
+min.</li>
+<li>Wash with <strong>100 µl digi-CT wash buffer</strong> for 5 min at
+RT.</li>
+</ol>
+<hr />
+<h3 id="step-5-tagmentation">Step 5: Tagmentation</h3>
+<blockquote>
+<p><strong>Rationale:</strong> PA-Tn5 loaded with sequencing adapters
+inserts adapters at antibody-bound chromatin sites. Higher salt during
+binding reduces non-specific insertion; MgCl₂ activates Tn5 during
+tagmentation.</p>
+</blockquote>
+<ol type="1">
+<li>Add loaded PA-Tn5 in <strong>70 µl digi-300-wash buffer</strong>
+(1:50 dilution). Incubate for <strong>1 hr at RT</strong>.</li>
+<li>Wash with <strong>digi-300-wash buffer</strong> for 5 min at
+RT.</li>
+<li>Add <strong>tagmentation buffer</strong> (10 mM MgCl₂ in
+digi-300-wash buffer).</li>
+<li>Incubate at <strong>55°C for 1 hr</strong> (no shake).</li>
+</ol>
+<blockquote>
+<p><strong>Recommended:</strong> Start ramping down temperature at 55
+min from 55°C → 37°C before stopping, optionally additionally 5min for
+the temperature to ramp down fully.</p>
+</blockquote>
+<hr />
+<h3 id="step-6-tissue-clearing">Step 6: Tissue Clearing</h3>
+<blockquote>
+<p><strong>Rationale:</strong> HCl treatment removes histones and bound
+Tn5, improving accessibility for Gap Filling reaction and <em>in
+vitro</em> transcription.</p>
+</blockquote>
+<ol type="1">
+<li>Remove the Tagmentation Reaction.</li>
+<li>Add <strong>70 µl of 0.1 M HCl</strong> (accurately diluted from
+stock) to each well.</li>
+<li>Incubate for <strong>2 min at RT</strong>.</li>
+<li>Remove HCl.</li>
+<li>Add <strong>100 µl of 1X NEB buffer 2</strong> and incubate for 5
+min at RT.</li>
+</ol>
+<blockquote>
+<p><strong>note:</strong> the 2min clearing here is optimized for mouse
+brain tissue, for other tissue types, this time might needs
+optimization.</p>
+</blockquote>
+<hr />
+<h3 id="step-7-gap-filling">Step 7: Gap Filling</h3>
+<blockquote>
+<p><strong>Rationale:</strong> Tagmentation creates nicked DNA ends. Gap
+filling repairs these nicks, enabling downstream in vitro transcription
+for signal amplification.</p>
+</blockquote>
+<p><strong>Gap-Fill Solution (70 µl/well):</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>H₂O</td>
+<td>56.8 µl</td>
+</tr>
+<tr class="even">
+<td>10x NEB buffer 2</td>
+<td>7 µl</td>
+</tr>
+<tr class="odd">
+<td>dNTPs</td>
+<td>3.5 µl</td>
+</tr>
+<tr class="even">
+<td>RNase Inhibitor (RNAseout)</td>
+<td>0.7 µl</td>
+</tr>
+<tr class="odd">
+<td>Klenow (exo⁻)</td>
+<td>2 µl</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Remove buffer; add 70 µl fill-in solution. Incubate at <strong>37°C
+for 30 min</strong> without shaking.</li>
+<li>Add <strong>100 µl of 1X T7 buffer</strong> and incubate for 5 min
+at RT.</li>
+</ol>
+<blockquote>
+<p>A Thermotop is recommended for even temperature distribution.</p>
+</blockquote>
+<hr />
+<h3 id="step-8-in-vitro-transcription">Step 8: <em>In Vitro</em>
+Transcription</h3>
+<blockquote>
+<p><strong>Rationale:</strong> T7 RNA polymerase transcribes from the
+inserted T7 promoter, generating multiple RNA copies per tagmentation
+event — a key amplification step that increases sensitivity.</p>
+</blockquote>
+<p><strong>IVT Solution (70 µl/well):</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume (µl)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>nuclease-free water</td>
+<td>35.0</td>
+</tr>
+<tr class="even">
+<td>5× Thermo EP0111 buffer (COMMERCIAL)</td>
+<td>14.0</td>
+</tr>
+<tr class="odd">
+<td>25 mM-each rNTP (NEB N0466)</td>
+<td>11.2</td>
+</tr>
+<tr class="even">
+<td>200 mM MgCl₂ working stock</td>
+<td>5.6</td>
+</tr>
+<tr class="odd">
+<td>RNase inhibitor</td>
+<td>3.5</td>
+</tr>
+<tr class="even">
+<td>T7 (Thermo EP0111), 1%</td>
+<td>0.7</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Remove T7 buffer and apply <strong>70 µl IVT solution</strong> to
+each well.</li>
+<li>Seal wells with film and incubate in thermomixer at <strong>37°C
+overnight</strong> (14–16 hrs).</li>
+</ol>
+<blockquote>
+<p>A thermotop is recommended to maintain temperature uniformity.</p>
+</blockquote>
+<hr />
+<h2 id="day-2">Day 2</h2>
+<h3 id="step-9-methanol-fixation">Step 9: Methanol Fixation</h3>
+<blockquote>
+<p><strong>Rationale:</strong> Methanol fixation preserves IVT-generated
+RNA transcripts in place on the slide, enabling spatial capture in
+subsequent steps.</p>
+</blockquote>
+<blockquote>
+<p><strong>Night before:</strong> Chill methanol (40 ml/slide) in a 50
+ml centrifuge tube at −20°C.</p>
+</blockquote>
+<ol type="1">
+<li>Completely immerse the slide in pre-chilled methanol; secure the
+cap. Incubate upright for <strong>30 min at −20°C</strong>.</li>
+<li>Remove the slide; wipe excess liquid from the back without touching
+tissue sections. Place on a flat, clean, non-absorbent surface.</li>
+<li>Add <strong>500 µl isopropanol</strong> to uniformly cover all
+tissue sections. Incubate for 1 min at RT, then discard by draining.
+Wipe off excess.</li>
+<li>Air dry the slide. Inspect after 5 min.</li>
+</ol>
+<blockquote>
+<p><strong>DO NOT exceed 10 min drying time</strong> to avoid
+over-drying the tissue.</p>
+</blockquote>
+<hr />
+<h3 id="step-10-he-staining">Step 10: H&amp;E Staining</h3>
+<blockquote>
+<p><strong>Rationale:</strong> H&amp;E staining is performed for
+histological imaging to annotate tissue regions and guide downstream
+spatial analysis.</p>
+</blockquote>
+<p><strong>Before experiment — dispense Milli-Q water:</strong> - 50 ml
+into one 50 ml centrifuge tube (per slide) - 800 ml each into Beakers 1,
+2, and 3 (each sufficient for two slides)</p>
+<p><strong>Eosin Mix:</strong></p>
+<blockquote>
+<p><strong>DO NOT</strong> add undiluted eosin directly to tissue
+sections.</p>
+</blockquote>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume/slide</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Eosin Y Solution</td>
+<td>100 µl</td>
+</tr>
+<tr class="even">
+<td>Tris-Acetic Acid Buffer (0.45 M, pH 6.0)</td>
+<td>900 µl</td>
+</tr>
+<tr class="odd">
+<td><strong>Total</strong></td>
+<td><strong>1,000 µl</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Staining Steps:</strong></p>
+<ol type="1">
+<li>Add <strong>1 ml Hematoxylin</strong> to cover sections. Incubate
+for <strong>7 min</strong> at RT, then drain.</li>
+<li>Immerse slide: 5× centrifuge-tube water → 15× Beaker 1 → 15× Beaker
+2. Spin dry.</li>
+<li>Add <strong>1 ml Bluing Buffer</strong>. Incubate for <strong>2
+min</strong> at RT, then discard.</li>
+<li>Immerse slide 5× in Beaker 2 water. Spin dry.</li>
+<li>Add <strong>1 ml Eosin Mix</strong>. Incubate for <strong>1
+min</strong> at RT, then discard.</li>
+<li>Immerse slide 15× in Beaker 3 water. Spin dry.</li>
+<li>Incubate on Thermocycler Adaptor (lid open) for 1 min at 37°C.</li>
+</ol>
+<p><strong>Proceed to tissue imaging on the Metafer scope.</strong></p>
+<hr />
+<h3 id="step-11-tissue-wash">Step 11: Tissue Wash</h3>
+<ol type="1">
+<li>After imaging, wash with <strong>1X RT buffer</strong> (MMuLV,
+Maxima, or SSIII) at <strong>37°C for 30 min</strong>.</li>
+</ol>
+<hr />
+<h3 id="step-12-cdna-synthesis">Step 12: cDNA Synthesis</h3>
+<blockquote>
+<p><strong>Rationale:</strong> Reverse transcription converts
+IVT-generated RNA into cDNA using the spatially barcoded capture oligos
+on the Visium slide, enabling spatial indexing of the signal.</p>
+</blockquote>
+<p>Option 1: <strong>Visium RT Reaction</strong></p>
+<p>Prepare Visium RT reagent as below:</p>
+<table>
+<thead>
+<tr class="header">
+<th>RT Master Mix</th>
+<th>PN</th>
+<th>1X (µl)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nuclease-free Water</td>
+<td></td>
+<td>40.2</td>
+</tr>
+<tr class="even">
+<td>RT Reagent</td>
+<td>2000086</td>
+<td>17.5</td>
+</tr>
+<tr class="odd">
+<td>Reducing Agent B</td>
+<td>2000087</td>
+<td>1.4</td>
+</tr>
+<tr class="even">
+<td>RT Enzyme D</td>
+<td>2000216/2000227</td>
+<td>10.9</td>
+</tr>
+<tr class="odd">
+<td>total</td>
+<td></td>
+<td>70</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Remove the 1X RT Buffer from each well, add the RT Mix to each
+well.</li>
+<li>Incubate <strong>53°C for 90min</strong>.</li>
+</ol>
+<p>Option 2: <strong>Alternatively, home made RT can be
+performed</strong></p>
+<p>Prepare the RT mixture (70 µl/well) and pre-heat to
+<strong>42°C</strong> before use.</p>
+<p><strong>Option A: MMuLV (NEB)</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5x Maxima RT Buffer</td>
+<td>14 µl</td>
+</tr>
+<tr class="even">
+<td>Water (RNase/DNase-free)</td>
+<td>41.35 µl</td>
+</tr>
+<tr class="odd">
+<td>BSA (20 mg/ml)</td>
+<td>0.65 µl</td>
+</tr>
+<tr class="even">
+<td>dNTP mix (10 mM each)</td>
+<td>3.5 µl</td>
+</tr>
+<tr class="odd">
+<td><em>(Add immediately before use:)</em></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>RNaseOut (40 U/µl)</td>
+<td>3.5 µl</td>
+</tr>
+<tr class="odd">
+<td>MMuLV (200 U/µl)</td>
+<td>7 µl</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td><strong>70 µl</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Option B: Superscript III (Thermo)</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5x RT Buffer</td>
+<td>14 µl</td>
+</tr>
+<tr class="even">
+<td>Water (RNase/DNase-free)</td>
+<td>41.35 µl</td>
+</tr>
+<tr class="odd">
+<td>BSA (20 mg/ml)</td>
+<td>0.65 µl</td>
+</tr>
+<tr class="even">
+<td>dNTP mix (10 mM each)</td>
+<td>3.5 µl</td>
+</tr>
+<tr class="odd">
+<td><em>(Add immediately before use:)</em></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>RNaseOut (40 U/µl)</td>
+<td>3.5 µl</td>
+</tr>
+<tr class="odd">
+<td>SSIII (200 U/µl)</td>
+<td>7 µl</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td><strong>70 µl</strong></td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Add 70 µl of RT mix to each well; avoid bubbles. Cover with a plate
+sealer.</li>
+<li>Incubate at <strong>42°C overnight</strong> or for 6 hrs in an
+Eppendorf thermomixer.</li>
+</ol>
+<hr />
+<h2 id="day-3">Day 3</h2>
+<h3 id="step-13-denaturation-post-rt">Step 13: Denaturation
+(post-RT)</h3>
+<blockquote>
+<p><strong>Rationale:</strong> KOH denaturation removes the RNA
+template, leaving single-stranded cDNA for second strand synthesis.</p>
+</blockquote>
+<ol type="1">
+<li>Remove the RT mixture.</li>
+<li>Add <strong>70 µl of 0.08 M KOH</strong> (freshly diluted) to each
+well.</li>
+<li>Incubate for <strong>5 min at RT</strong>.</li>
+<li>Remove KOH.</li>
+<li>Add <strong>100 µl of Buffer EB</strong> (10 mM Tris-Cl, pH 8.5) to
+neutralize.</li>
+</ol>
+<hr />
+<h3 id="step-14-second-strand-synthesis">Step 14: Second Strand
+Synthesis</h3>
+<blockquote>
+<p><strong>Rationale:</strong> A primer is annealed to the
+single-stranded cDNA; Klenow polymerase extends it to generate dsDNA
+suitable for PCR amplification.</p>
+</blockquote>
+<p><strong>Primer Annealing:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2x primer hybridization buffer</td>
+<td>35 µl</td>
+</tr>
+<tr class="even">
+<td>Primer (1 µM)</td>
+<td>1.4 µl</td>
+</tr>
+<tr class="odd">
+<td>H₂O</td>
+<td>33.6 µl</td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Add 70 µl of primer annealing mix to each well; incubate at
+<strong>RT for 30 min</strong>.</li>
+<li>Wash with Buffer EB: pipette 100 µl into each well and immediately
+remove.</li>
+</ol>
+<p><strong>Klenow Extension:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5x Maxima Buffer</td>
+<td>14 µl</td>
+</tr>
+<tr class="even">
+<td>Water (RNase/DNase-free)</td>
+<td>40.25 µl</td>
+</tr>
+<tr class="odd">
+<td>dNTP mix (10 mM each)</td>
+<td>7 µl</td>
+</tr>
+<tr class="even">
+<td>DNA primer (10 µM)</td>
+<td>7 µl</td>
+</tr>
+<tr class="odd">
+<td>Klenow (200 U/µl)</td>
+<td>1.75 µl</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td><strong>70 µl</strong></td>
+</tr>
+</tbody>
+</table>
+<ol type="1">
+<li>Add 70 µl of Klenow mix to each well; avoid bubbles. Cover and
+incubate for <strong>1 hr at 37°C</strong>.</li>
+<li>Remove the Klenow mix.</li>
+</ol>
+<hr />
+<h3 id="step-15-denaturation-post-second-strand">Step 15: Denaturation
+(post-Second Strand)</h3>
+<blockquote>
+<p><strong>Rationale:</strong> A second KOH denaturation releases the
+dsDNA from the slide for collection and downstream library
+preparation.</p>
+</blockquote>
+<ol type="1">
+<li>Remove reagents from the wells.</li>
+<li>Add <strong>100 µl Buffer EB</strong> to each well; remove
+immediately.</li>
+<li>Add <strong>35 µl of 0.08 M KOH</strong> (freshly diluted) to each
+well.</li>
+<li>Incubate for <strong>10 min at RT</strong>.</li>
+<li>Add <strong>5 µl of 1 M Tris (pH 7.0)</strong> to each tube in an
+8-tube strip to pre-neutralize.</li>
+<li>Transfer 35 µl of sample from each well to the corresponding
+Tris-containing tube (±1–2 µl variation expected).</li>
+<li>Vortex briefly, centrifuge, and place on ice.</li>
+</ol>
+<hr />
+<h3 id="step-16-pcr-library-amplification">Step 16: PCR Library
+Amplification</h3>
+<blockquote>
+<p><strong>Rationale:</strong> PCR1 amplifies the cDNA library using
+primers targeting the capture oligo and Nextera adapter sequences. Index
+PCR adds sample-specific barcodes for multiplexed sequencing.</p>
+</blockquote>
+<p><strong>PCR1:</strong></p>
+<p>For Visium slides (e.g. mouse brain, ~70% capture area): ~18 cycles
+recommended.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Elution</td>
+<td>40 µl</td>
+</tr>
+<tr class="even">
+<td>cDNA-oligo1 (<code>CTACACGACGCTCTTCCGATCT</code>)</td>
+<td>5 µl</td>
+</tr>
+<tr class="odd">
+<td>PF-nexteraR2-DME
+(<code>GTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG</code>)</td>
+<td>5 µl</td>
+</tr>
+<tr class="even">
+<td>NEBNext</td>
+<td>50 µl</td>
+</tr>
+</tbody>
+</table>
+<p><strong>PCR1 Program:</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Step</th>
+<th>Temp</th>
+<th>Time</th>
+<th>Cycles</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Initial denaturation</td>
+<td>98°C</td>
+<td>3 min</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Denaturation</td>
+<td>98°C</td>
+<td>15 s</td>
+<td>18×</td>
+</tr>
+<tr class="odd">
+<td>Annealing</td>
+<td>60°C</td>
+<td>20 s</td>
+<td>18×</td>
+</tr>
+<tr class="even">
+<td>Extension</td>
+<td>72°C</td>
+<td>1 min</td>
+<td>18×</td>
+</tr>
+<tr class="odd">
+<td>Final extension</td>
+<td>72°C</td>
+<td>1 min</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Hold</td>
+<td>4°C</td>
+<td>∞</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Purify with <strong>0.1x SPRI</strong>; elute in 40 µl. Use 20 µl for
+index PCR.</p>
+<p><strong>Index PCR (5 cycles):</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th>Reagent</th>
+<th>Volume</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Elution</td>
+<td>20 µl</td>
+</tr>
+<tr class="even">
+<td>SIPCR-T5XXX</td>
+<td>2.5 µl</td>
+</tr>
+<tr class="odd">
+<td>N7 indexing primer</td>
+<td>2.5 µl</td>
+</tr>
+<tr class="even">
+<td>NEBNext</td>
+<td>25 µl</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Primer sequences:</strong></p>
+<ul>
+<li>SIPCR-T5XXX:
+<code>AATGATACGGCGACCACCGAGATCTACACNNNNNNNNACACTCTTTCCCTACACGACGCTC</code></li>
+<li>N7 indexing primer:
+<code>CAAGCAGAAGACGGCATACGAGATNNNNNNNNGTCTCGTGGGCTCGG</code></li>
+</ul>
+<p><strong>Final Cleanup:</strong> Perform <strong>0.65x SPRI
+purification</strong></p>
+</body>
+</html>
