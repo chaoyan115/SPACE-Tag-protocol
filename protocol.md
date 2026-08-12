@@ -338,8 +338,6 @@ Prepare the RT mixture (70 µl/well) and pre-heat to **42°C** before use.
 
 ---
 
-## Day 3
-
 ### Step 13: Denaturation (post-RT)
 
 > **Rationale:** KOH denaturation removes the RNA template, leaving single-stranded cDNA for second strand synthesis.
