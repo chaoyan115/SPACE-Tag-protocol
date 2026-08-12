@@ -20,13 +20,12 @@ measured directly.
 
 ## Protocol at a glance
 
-The protocol runs over three days on a standard Visium workflow.
+The protocol runs over two days on a standard Visium workflow.
 
 | | |
 | --- | --- |
 | **Day 1** | Fixation, permeabilization, primary and secondary antibody staining, PA-Tn5 tagmentation, tissue clearing, gap filling, in vitro transcription |
-| **Day 2** | Methanol fixation, H&E staining, tissue wash, cDNA synthesis on the slide |
-| **Day 3** | Denaturation, second strand synthesis, PCR library amplification |
+| **Day 2** | Methanol fixation, H&E staining, tissue wash, cDNA synthesis on the slide, Denaturation, second strand synthesis, PCR library amplification |
 
 Buffer recipes, reagent part numbers, incubation times and temperatures are given in
 full in the protocol page linked above.
