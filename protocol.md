@@ -439,4 +439,5 @@ Purify with **1x SPRI**; elute in 50 µl. Use 10 µl for index PCR.
 - N7 indexing primer: `CAAGCAGAAGACGGCATACGAGATNNNNNNNNGTCTCGTGGGCTCGG`
 
 **Final Cleanup:**
-Perform **0.65x SPRI purification**
+Run a gel to check product size first, we do see variations on products vs primer dimer distributions.
+Perform **0.65x SPRI purification** (target product ~400bp) or a **0.8x SPRI purification** (target product ~300bp)
