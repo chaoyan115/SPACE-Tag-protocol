@@ -427,9 +427,10 @@ Purify with **1x SPRI**; elute in 50 µl. Use 10 µl for index PCR.
 
 | Reagent | Volume |
 |---|---|
-| Elution | 20 µl |
-| SIPCR-T5XXX | 2.5 µl |
-| N7 indexing primer | 2.5 µl |
+| Elution | 10 µl |
+| SIPCR-T5XXX | 5 µl |
+| N7 indexing primer | 5 µl |
+| H2O | 30 µl |
 | NEBNext | 25 µl |
 
 **Primer sequences:**
