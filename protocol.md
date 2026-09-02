@@ -431,7 +431,7 @@ Purify with **1x SPRI**; elute in 50 µl. Use 10 µl for index PCR.
 | SIPCR-T5XXX | 5 µl |
 | N7 indexing primer | 5 µl |
 | H2O | 30 µl |
-| NEBNext | 25 µl |
+| NEBNext | 50 µl |
 
 **Primer sequences:**
 
@@ -440,4 +440,4 @@ Purify with **1x SPRI**; elute in 50 µl. Use 10 µl for index PCR.
 
 **Final Cleanup:**
 Run a gel to check product size first, we do see variations on products vs primer dimer distributions.
-Perform **0.65x SPRI purification** (target product ~400bp) or a **0.8x SPRI purification** (target product ~300bp)
+Perform **1x SPRI purification** twice for pure product.
