@@ -74,7 +74,7 @@ HPLC purification recommended; alternatively order in ultramer format.
 | Name | Sequence (5'→3') |
 |---|---|
 | dual_ME19_polyT_v2 (Adapter A) | `TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTVNAGATGTGTATAAGAGACAG` |
-| T7_MedsB (Adapter B) | `GAATTTAATACGACTCACTATAGGGGTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG` |
+| T7_MedsB (Adapter B) | `GAATTTAATACGACTCACTATAGGGAGAGTCTCGTGGGCTCGGAGATGTGTATAAGAGACAG` |
 | ME_19_Phos (Mosaic Ends) | `/5Phos/CTGTCTCTTATACACATCT` |
 
 #### Annealing Recipe (per adapter)
