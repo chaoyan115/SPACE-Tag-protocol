@@ -117,12 +117,13 @@ Sensitivity D5000 ScreenTape).
 - The no-PA-Tn5 well is empty apart from primer dimer.
 - Duplicates look alike.
 
-![Example 2% agarose gel of CUT&Tag libraries from human colorectal cancer sections.](figures/cuttag_gel_example_labelled.png)
+![2% agarose gel of two conventional H3K27ac CUT&Tag libraries showing mono-, di- and tri-nucleosomal fragments.](figures/cuttag_gel_example.png)
 
-*Example gel before clean-up (2% E-Gel EX, human colorectal cancer sections, H3K27ac and H3K27me3
-antibodies; M, DNA ladder). Libraries form a nucleosomal ladder: a strong mononucleosome band near
-300 bp, a weaker dinucleosome band and a smear above. The bands below 100 bp are primer dimer, which
-the double-sided clean-up removes.*
+*Example gel (2% agarose). Two conventional H3K27ac CUT&Tag libraries from tissue sections,
+tagmented under the conditions used for SPACE-Tag. The libraries show mono-, di- and
+tri-nucleosomal fragments; the PCR primers add 99 bp to each fragment, so the mononucleosome band
+runs near 300 bp. The bands at the bottom are primer dimer, which the double-sided clean-up removes.
+M, E-Gel 1 Kb Plus DNA Ladder.*
 
 If the antibody wells look no better than the no-antibody well, change the antibody or its
 dilution before moving on to the [IVT test](ivt-test.html). Libraries that pass can also be
