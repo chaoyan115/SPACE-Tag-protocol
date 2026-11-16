@@ -129,7 +129,7 @@ b. Set thermomixer to **37°C** and allow to equilibrate for 5 min.
 2. Place the slide (active surface up) on the thermomixer. Incubate for 5 min at 37°C.
 3. Remove the slide; wipe excess liquid from the back without touching tissue sections.
 4. Apply **1 ml of 0.2% formaldehyde** in 1xPBS to cover the tissue. Incubate at RT for 10 min.
-5. Wash with **1 ml of 1X PBS + 1.25 M glycine** to quench residual formaldehyde, then remove.
+5. Add **1 ml of 1X PBS + 1.25 M glycine** and incubate for **5 min at RT** to quench residual formaldehyde, then remove.
 6. Quickly wash with **1 ml of 1X PBS** for ~2 min at RT.
 
 ---
@@ -290,7 +290,7 @@ b. Set thermomixer to **37°C** and allow to equilibrate for 5 min.
 
 > **Rationale:** Reverse transcription converts IVT-generated RNA into cDNA using the spatially barcoded capture oligos on the Visium slide, enabling spatial indexing of the signal.
 
-Option 1: **Visium RT Reaction**
+Option 1: **Visium RT Reaction** (used for the data in the preprint)
 
 Prepare Visium RT reagent as below: 
 
@@ -305,7 +305,7 @@ Prepare Visium RT reagent as below:
 1. Remove the 1X RT Buffer from each well, add the RT Mix to each well.
 2. Incubate **53°C for 90min**.
 
-Option 2: **Alternatively, home made RT can be performed**
+Option 2 (optional): **homemade RT**, an alternative to the Visium RT reagents. It was not used for the data in the preprint.
 
 Prepare the RT mixture (70 µl/well) and pre-heat to **42°C** before use.
 
