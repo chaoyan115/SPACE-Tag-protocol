@@ -59,8 +59,13 @@ The complete reagent list is in the protocol.
 
 ## Citation
 
-A manuscript describing SPACE-Tag is in preparation. Please check back here for the
-citation, or get in touch before using the method in published work.
+If you use SPACE-Tag, please cite:
+
+> Yan C., He R., Fernandez S., Pleska M., Maniatis S., Raimondi I., Vickovic S. SPACE-Tag enables
+> high-throughput spatial chromatin profiling with CUT&Tag. *bioRxiv* (2026).
+> [doi:10.64898/2026.11.06.764689](https://doi.org/10.64898/2026.11.06.764689)
+
+The preprint is under peer review, and this protocol may be updated as the paper is revised.
 
 ## Feedback
 

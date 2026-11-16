@@ -4,6 +4,7 @@ SPACE-Tag integrates spatial barcoding  with CUT&Tag-based epigenomic profiling.
 
 **Tags:** Spatial Epigenomics | CUT&Tag | Visium | PA-Tn5 | Histone Modifications  
 **Last updated:** November 2026  
+**Preprint:** [Yan et al., bioRxiv 2026](https://doi.org/10.64898/2026.11.06.764689). The paper is under peer review; this protocol may be updated.  
 **Before your first run:** see [How to start](https://chaoyan115.github.io/SPACE-Tag-protocol/start.html) and the [IVT test on plain slides](https://chaoyan115.github.io/SPACE-Tag-protocol/ivt-test.html).
 
 ---
