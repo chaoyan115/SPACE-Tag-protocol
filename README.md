@@ -5,6 +5,26 @@ capture spatial platforms.
 
 **[Read the full protocol →](https://chaoyan115.github.io/SPACE-Tag-protocol/)**
 
+## Before your first run
+
+Start with the [protocols home page](https://chaoyan115.github.io/SPACE-Tag-protocol/start.html). It links
+all three protocols and shows the order in which to use them:
+
+```
+1. Section and check the tissue           H&E on one section
+2. Validate the antibody                  immunofluorescence on a plain slide
+3. CUT&Tag test on a plain slide          standard Nextera adapters, PCR, gel
+4. IVT test on a plain slide              full Day 1, then RNA purification and TapeStation
+5. Spatial experiment                     SPACE-Tag (Visium) or SPACE-Tag-HD (Visium HD)
+6. Library QC                             fragment analyzer, then a shallow sequencing run
+7. Deep sequencing and analysis
+```
+
+Steps 2 to 4 use plain glass slides, a gel and one TapeStation run, and catch most failures before a
+spatial slide is used. Step 3 is the
+[CUT&Tag test](https://chaoyan115.github.io/SPACE-Tag-protocol/cuttag-test.html) and step 4 the
+[IVT test](https://chaoyan115.github.io/SPACE-Tag-protocol/ivt-test.html).
+
 ## What it does
 
 SPACE-Tag maps histone modifications in intact tissue sections while preserving spatial
